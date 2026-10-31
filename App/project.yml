@@ -20,10 +20,16 @@ settings:
     Release:
       VALIDATE_PRODUCT: YES
 
+packages:
+  TikiliveCore:
+    path: ../Packages/TikiliveCore
+
 # shared by both apps
 targetTemplates:
   App:
     type: application
+    dependencies:
+      - package: TikiliveCore
     settings:
       base:
         PRODUCT_NAME: Tikilive

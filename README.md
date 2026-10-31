@@ -28,6 +28,7 @@ Run from the repository root:
 | `make build`         | Build the iOS app (Debug) |
 | `make build-tvos`    | Build the tvOS app (Debug) |
 | `make build-release` | Build the iOS app (Release) |
-| `make clean`         | Remove the generated Xcode project |
+| `make test`          | Run the TikiliveCore package tests |
+| `make clean`         | Remove the generated Xcode project and package build artifacts |
 
 The Xcode project is generated from `App/project.yml` — change settings there, then `make project`.

@@ -2,7 +2,7 @@
 
 PROJECT := App/Tikilive.xcodeproj
 
-.PHONY: help bootstrap project build build-tvos build-release clean
+.PHONY: help bootstrap project build build-tvos build-release test clean
 
 help: ## list available commands
 	@grep -E "^[a-z-]+:.*##" $(MAKEFILE_LIST) | sed "s/:.*## /\t/"
@@ -25,5 +25,8 @@ build-tvos: ## build the tvOS app
 build-release: ## build the iOS app in Release - check before archiving
 	xcodebuild -project $(PROJECT) -scheme Tikilive-iOS -configuration Release -destination "generic/platform=iOS Simulator" build
 
-clean: ## remove the generated project
-	rm -rf $(PROJECT)
+test: ## run TikiliveCore tests
+	cd Packages/TikiliveCore && swift test
+
+clean: ## remove generated project and build artifacts
+	rm -rf $(PROJECT) Packages/TikiliveCore/.build
