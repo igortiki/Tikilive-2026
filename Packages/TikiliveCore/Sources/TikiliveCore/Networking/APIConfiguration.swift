@@ -19,7 +19,6 @@ public struct APIConfiguration: Sendable {
         self.baseURL = baseURL
         self.apiID = apiID
         self.apiKey = apiKey
-        
     }
 }
 

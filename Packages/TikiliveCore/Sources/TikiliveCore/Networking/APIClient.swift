@@ -17,7 +17,6 @@ final class APIClient {
         self.configuration = configuration
         self.session = session
         self.signer = RequestSigner(apiKey: configuration.apiKey)
-
     }
 }
 
