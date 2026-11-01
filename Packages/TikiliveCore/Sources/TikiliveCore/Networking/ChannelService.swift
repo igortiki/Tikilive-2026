@@ -27,7 +27,6 @@ final class ChannelService: ChannelServiceProtocol {
             URLQueryItem(name: "premium_broadcasts", value: "1"),
         ]
 
-      
         let response: ChannelsResponse = try await client.request(path: "/channels", queryItems: queryItems)
         return response.channels
     }

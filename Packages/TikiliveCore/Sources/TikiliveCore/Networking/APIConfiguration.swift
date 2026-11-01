@@ -11,7 +11,7 @@ public struct APIConfiguration: Sendable {
     let baseURL: URL
     let apiID: String
     let apiKey: String
-    
+
     init(baseStringURL: String, apiID: String, apiKey: String) {
         guard let baseURL = URL(string: baseStringURL) else {
             preconditionFailure("Invalid BaseURL \(baseStringURL)")

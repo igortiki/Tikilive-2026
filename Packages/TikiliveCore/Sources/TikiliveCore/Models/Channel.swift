@@ -5,7 +5,6 @@
 //  Created by Igor Malasevschi on 11/1/26
 //
 
-
 import Foundation
 
 struct Channel: Decodable, Identifiable {
@@ -47,10 +46,10 @@ struct Channel: Decodable, Identifiable {
     }
 }
 
-struct ChannelCategory: Codable {
+struct ChannelCategory: Decodable {
     let id: Int
 }
 
-struct ChannelImage: Codable {
+struct ChannelImage: Decodable {
     let small: String?
 }

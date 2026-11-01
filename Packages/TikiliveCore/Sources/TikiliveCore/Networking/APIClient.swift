@@ -1,4 +1,3 @@
-
 //
 //  APIClient.swift
 //  TikiliveCore
@@ -12,13 +11,13 @@ final class APIClient {
     let configuration: APIConfiguration
     private let session: URLSession
     private let signer: RequestSigner
-    
+
     init(configuration: APIConfiguration, session: URLSession = .shared) {
         self.configuration = configuration
         self.session = session
         self.signer = RequestSigner(apiKey: configuration.apiKey)
     }
-    
+
     // MARK: - Generic Request
     func request<T: Decodable>(path: String, queryItems: [URLQueryItem] = []) async throws -> T {
         let method = "GET"
@@ -41,16 +40,13 @@ final class APIClient {
         urlRequest.setValue(authorization, forHTTPHeaderField: "Authorization")
 
         let (data, response) = try await session.data(for: urlRequest)
-        
+
         guard let httpResponse = response as? HTTPURLResponse,
               httpResponse.statusCode == 200 else {
             throw URLError(.badServerResponse)
         }
-        
+
         // Models map snake_case keys with explicit CodingKeys
         return try JSONDecoder().decode(T.self, from: data)
     }
-        
 }
-
-
