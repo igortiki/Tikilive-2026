@@ -116,4 +116,33 @@ struct ChannelTests {
         #expect(channel.tveURL == nil)
         #expect(channel.tveProgramID == nil)
     }
+
+    @Test
+    func decodeChannelWithoutRequiredFieldThrows() throws {
+        // Arrange
+        let json = """
+        {
+            "id": 123,
+            "name": "Discovery Channel",
+            "live": true,
+            "is_catchup_tv": false,
+            "is_hd": true,
+            "is_adult": false,
+            "dvr": false
+        }
+        """
+        let data = Data(json.utf8)
+
+        // Act
+        let error = try #require(throws: DecodingError.self) {
+            try JSONDecoder().decode(Channel.self, from: data)
+        }
+
+        // Assert
+        guard case .keyNotFound(let key, _) = error else {
+            Issue.record("Expected keyNotFound, got \(error)")
+            return
+        }
+        #expect(key.stringValue == "stb_number")
+    }
 }
