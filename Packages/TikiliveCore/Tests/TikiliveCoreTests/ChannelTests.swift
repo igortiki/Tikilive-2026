@@ -55,4 +55,65 @@ struct ChannelTests {
         #expect(channel.tveURL == "https://example.com/stream")
         #expect(channel.tveProgramID == "program123")
     }
+
+    @Test
+    func decodeChannelWithMissingOptionalFields() throws {
+        // Arrange
+        let json = """
+        {
+            "id": 123,
+            "name": "Discovery Channel",
+            "stb_number": 7,
+            "live": true,
+            "is_catchup_tv": false,
+            "is_hd": true,
+            "is_adult": false,
+            "dvr": false
+        }
+        """
+        let data = Data(json.utf8)
+
+        // Act
+        let channel = try JSONDecoder().decode(Channel.self, from: data)
+
+        // Assert
+        #expect(channel.category == nil)
+        #expect(channel.img == nil)
+        #expect(channel.channelType == nil)
+        #expect(channel.tveURL == nil)
+        #expect(channel.tveProgramID == nil)
+    }
+
+    @Test
+    func decodeChannelWithNullOptionalFields() throws {
+        // Arrange
+        let json = """
+        {
+            "id": 123,
+            "name": "Discovery Channel",
+            "stb_number": 7,
+            "category": null,
+            "img": null,
+            "live": true,
+            "is_catchup_tv": false,
+            "is_hd": true,
+            "is_adult": false,
+            "dvr": false,
+            "channel_type": null,
+            "tve_url": null,
+            "tve_program_id_ios": null
+        }
+        """
+        let data = Data(json.utf8)
+
+        // Act
+        let channel = try JSONDecoder().decode(Channel.self, from: data)
+
+        // Assert
+        #expect(channel.category == nil)
+        #expect(channel.img == nil)
+        #expect(channel.channelType == nil)
+        #expect(channel.tveURL == nil)
+        #expect(channel.tveProgramID == nil)
+    }
 }
