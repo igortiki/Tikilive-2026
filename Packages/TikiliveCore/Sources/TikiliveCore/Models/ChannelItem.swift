@@ -19,7 +19,9 @@ public struct ChannelItem: Identifiable {
         self.id = channel.id
         self.number = String(channel.stbNumber)
         self.name = channel.name
-        self.logoURL = channel.img?.small.flatMap(URL.init(string:))
+        self.logoURL = channel.img?.small.flatMap { value in
+            URL(string: value)
+        }
         self.isLive = channel.live
     }
 }
