@@ -8,8 +8,8 @@
 public final class AppDependencies {
     private let apiClient: APIClient
    
-    public init() {
-        self.apiClient = APIClient(configuration: .tiki6)
+    public init(configuration: APIConfiguration) {
+        self.apiClient = APIClient(configuration: configuration)
     }
     
     public func makeChannelListViewModel() -> ChannelListViewModel {
