@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class APIClient {
+final class APIClient: Sendable {
     let configuration: APIConfiguration
     private let session: URLSession
     private let signer: RequestSigner

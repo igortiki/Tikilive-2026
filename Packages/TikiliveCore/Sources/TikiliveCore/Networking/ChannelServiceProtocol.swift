@@ -5,6 +5,6 @@
 //  Created by Igor Malasevschi on 11/1/26
 //
 
-protocol ChannelServiceProtocol {
+protocol ChannelServiceProtocol: Sendable {
     func fetchVideoChannels() async throws -> [Channel]
 }
