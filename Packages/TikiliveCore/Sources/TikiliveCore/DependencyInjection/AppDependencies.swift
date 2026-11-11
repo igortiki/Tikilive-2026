@@ -12,6 +12,7 @@ public final class AppDependencies {
         self.apiClient = APIClient(configuration: configuration)
     }
     
+    @MainActor
     public func makeChannelListViewModel() -> ChannelListViewModel {
         let channelService = ChannelService(client: apiClient)
         let viewModel = ChannelListViewModel(service: channelService)
