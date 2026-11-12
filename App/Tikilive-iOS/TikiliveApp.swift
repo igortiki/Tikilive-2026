@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import TikiliveCore
 
 @main
 struct TikiliveApp: App {
+    private let dependencies = AppDependencies(configuration: .tiki6)
+    
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView(dependencies: dependencies)
         }
     }
 }
