@@ -23,6 +23,6 @@ public struct APIConfiguration: Sendable {
 }
 
 public extension APIConfiguration {
-    static let tiki6 = APIConfiguration(baseStringURL: "https://tiki6.tikilive.com", apiID: "13", apiKey: "KDwnVdWzMx6zAkJo")
+    static let tiki6 = APIConfiguration(baseStringURL: "https://tiki6.tikilive.com", apiID: "31", apiKey: "<your api key>")
     static let prod = APIConfiguration(baseStringURL: "https://www.tikilive.com", apiID: "10", apiKey: "<your api key>")
 }
