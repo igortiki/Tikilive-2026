@@ -23,4 +23,12 @@ public final class ChannelListViewModel {
     init(service: any ChannelServiceProtocol) {
         self.service = service
     }
+    
+    public func loadChannels() async {
+        do {
+            let channels =  try await service.fetchVideoChannels()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
 }
