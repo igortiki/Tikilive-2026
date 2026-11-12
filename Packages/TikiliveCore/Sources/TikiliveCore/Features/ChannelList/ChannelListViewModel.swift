@@ -16,9 +16,7 @@ public final class ChannelListViewModel {
     
     private let service: any ChannelServiceProtocol
     public private(set) var errorMessage: String?
-
-    
-    var channels: [ChannelItem] = []
+    public private(set) var channels: [ChannelItem] = []
     
     init(service: any ChannelServiceProtocol) {
         self.service = service
@@ -26,7 +24,8 @@ public final class ChannelListViewModel {
     
     public func loadChannels() async {
         do {
-            let channels =  try await service.fetchVideoChannels()
+            let apiChannels = try await service.fetchVideoChannels()
+            self.channels = apiChannels.map { ChannelItem(channel: $0) }
         } catch {
             errorMessage = error.localizedDescription
         }
