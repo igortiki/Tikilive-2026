@@ -9,7 +9,7 @@ import SwiftUI
 import TikiliveCore
 
 struct ChannelListView: View {
-    private var channelListViewModel: ChannelListViewModel
+    private let channelListViewModel: ChannelListViewModel
     
     init(channelListViewModel: ChannelListViewModel) {
         self.channelListViewModel = channelListViewModel
@@ -19,11 +19,18 @@ struct ChannelListView: View {
         
         let _ = Self._printChanges()
         
-        Text("Channels: \(channelListViewModel.channels.count)")
-            .task {
-                print("Live: task started")
-                await channelListViewModel.loadChannels()
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 12) {
+                ForEach(channelListViewModel.channels) { channel in
+                    Text(channel.name)
+                }
             }
-            
+            .padding(.horizontal, 16)
+        }
+        .task {
+            print("Live: task started")
+            await channelListViewModel.loadChannels()
+        }
+        
     }
 }

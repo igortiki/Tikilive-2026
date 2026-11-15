@@ -21,22 +21,26 @@ struct RootView: View {
     
     var body: some View {
         TabView {
-            ChannelListView(channelListViewModel: channelListViewModel)
+            LiveView(channelListViewModel: channelListViewModel)
                 .tabItem {
                     Label("Live", systemImage: "play.tv")
                 }
-                .toolbarBackground(.black, for: .tabBar)
+                .toolbarBackground(Color.appBackground, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
                 .toolbarColorScheme(.dark, for: .tabBar)
 
             Text("EPG")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.appBackground)
                 .tabItem {
                     Label("EPG", systemImage: "calendar")
                 }
-                .toolbarBackground(.black, for: .tabBar)
+                .toolbarBackground(Color.appBackground, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
                 .toolbarColorScheme(.dark, for: .tabBar)
         }
+        .tint(Color.appAccent)
+        .preferredColorScheme(.dark)
     }
 }
 
