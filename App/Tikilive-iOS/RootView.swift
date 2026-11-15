@@ -11,15 +11,17 @@ import TikiliveCore
 import SwiftUI
 
 struct RootView: View {
-    private let dependencies: AppDependencies
+    //private let dependencies: AppDependencies
+    @State private var channelListViewModel: ChannelListViewModel
     
     init(dependencies: AppDependencies) {
-        self.dependencies = dependencies
+        //self.dependencies = dependencies
+        _channelListViewModel = State(initialValue: dependencies.makeChannelListViewModel())
     }
     
     var body: some View {
         TabView {
-            ChannelListView(channelListViewModel: dependencies.makeChannelListViewModel())
+            ChannelListView(channelListViewModel: channelListViewModel)
                 .tabItem {
                     Label("Live", systemImage: "play.tv")
                 }

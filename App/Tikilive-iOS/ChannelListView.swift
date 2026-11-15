@@ -16,9 +16,14 @@ struct ChannelListView: View {
     }
     
     var body: some View {
-        Text("Channel List")
+        
+        let _ = Self._printChanges()
+        
+        Text("Channels: \(channelListViewModel.channels.count)")
             .task {
+                print("Live: task started")
                 await channelListViewModel.loadChannels()
             }
+            
     }
 }
