@@ -20,12 +20,13 @@ struct ChannelListView: View {
         let _ = Self._printChanges()
         
         ScrollView {
-            LazyVStack(alignment: .leading, spacing: 12) {
+            LazyVStack(alignment: .leading, spacing: 8) {
                 ForEach(channelListViewModel.channels) { channel in
-                    Text(channel.name)
+                    ChannelRowView(channel: channel)
                 }
             }
             .padding(.horizontal, 16)
+            .padding(.top, 16)
         }
         .task {
             print("Live: task started")
