@@ -17,10 +17,8 @@ struct ChannelListView: View {
     
     var body: some View {
         Text("Channel List")
-            .onAppear {
-                Task {
-                    await channelListViewModel.loadChannels()
-                }
+            .task {
+                await channelListViewModel.loadChannels()
             }
     }
 }
