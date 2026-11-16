@@ -12,8 +12,17 @@ struct ChannelRowView: View {
     let channel: ChannelItem
 
     var body: some View {
-        HStack {
-            Text(channel.number)
+        HStack(spacing: 16) {
+            AsyncImage(url: channel.logoURL) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+            } placeholder: {
+                Color.appChip
+            }
+            .frame(width: 56, height: 44)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+
             Text(channel.name)
         }
         .padding(12)

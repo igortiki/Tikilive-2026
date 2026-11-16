@@ -21,6 +21,7 @@ struct LiveView: View {
                 .fill(Color.gray)
                 .aspectRatio(16.0 / 9.0, contentMode: .fit)
             
+            LiveHeaderView()
             ChannelListView(channelListViewModel: channelListViewModel)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
