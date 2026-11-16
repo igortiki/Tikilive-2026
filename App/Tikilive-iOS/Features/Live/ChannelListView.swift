@@ -29,8 +29,12 @@ struct ChannelListView: View {
             .padding(.top, 16)
         }
         .task {
-            print("Live: task started")
+            // first appearance: load once, skip when returning to the tab
             await channelListViewModel.loadChannelsIfNeeded()
+        }
+        .refreshable {
+            // pull to refresh: always reload
+            await channelListViewModel.loadChannels()
         }
     }
 }
