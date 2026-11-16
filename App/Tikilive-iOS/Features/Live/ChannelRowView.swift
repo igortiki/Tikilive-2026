@@ -9,7 +9,13 @@ import SwiftUI
 import TikiliveCore
 
 struct ChannelRowView: View {
-    let channel: ChannelItem
+    private let channel: ChannelItem
+    private let isSelected: Bool
+
+    init(channel: ChannelItem, isSelected: Bool) {
+        self.channel = channel
+        self.isSelected = isSelected
+    }
 
     var body: some View {
         HStack(spacing: 16) {
@@ -27,7 +33,14 @@ struct ChannelRowView: View {
         }
         .padding(12)
         .frame(maxWidth: .infinity, minHeight: 60, alignment: .leading)
-        .background(Color.appCard)
+        .background(isSelected ? Color.appSelectedCard : Color.appCard)
         .clipShape(RoundedRectangle(cornerRadius: 12))
+        .overlay {
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(
+                    isSelected ? Color.appAccent : Color.clear,
+                    lineWidth: 1.5
+                )
+        }
     }
 }
