@@ -30,8 +30,7 @@ struct ChannelListView: View {
         }
         .task {
             print("Live: task started")
-            await channelListViewModel.loadChannels()
+            await channelListViewModel.loadChannelsIfNeeded()
         }
-        
     }
 }

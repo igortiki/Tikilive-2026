@@ -26,8 +26,15 @@ public final class ChannelListViewModel {
         do {
             let apiChannels = try await service.fetchVideoChannels()
             self.channels = apiChannels.map { ChannelItem(channel: $0) }
+        } catch is CancellationError, URLError.cancelled {
+            // cancelled by the view, not a real error
         } catch {
             errorMessage = error.localizedDescription
         }
+    }
+    
+    public func loadChannelsIfNeeded() async {
+        guard channels.isEmpty else { return }
+        await loadChannels()
     }
 }

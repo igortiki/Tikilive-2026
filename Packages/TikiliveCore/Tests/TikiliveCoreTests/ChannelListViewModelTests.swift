@@ -78,4 +78,37 @@ struct ChannelListViewModelTests {
         #expect(viewModel.channels.isEmpty)
         #expect(viewModel.errorMessage == error.localizedDescription)
     }
+
+    @Test
+    @MainActor
+    func loadChannelsIfNeededFetchesOnce() async throws {
+
+        // Arrange
+        let channels = [
+            Channel(
+                id: 1,
+                name: "News",
+                stbNumber: 7,
+                category: nil,
+                img: nil,
+                live: true,
+                isCatchupTV: false,
+                isHD: true,
+                isAdult: false,
+                dvr: false,
+                channelType: nil,
+                tveURL: nil,
+                tveProgramID: nil
+            )
+        ]
+        let channelService = MockChannelService(channels: channels)
+        let viewModel = ChannelListViewModel(service: channelService)
+
+        // Act
+        await viewModel.loadChannelsIfNeeded()
+        await viewModel.loadChannelsIfNeeded()
+
+        // Assert
+        #expect(channelService.fetchCallCount == 1)
+    }
 }
