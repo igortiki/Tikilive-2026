@@ -7,4 +7,5 @@
 
 protocol ChannelServiceProtocol: Sendable {
     func fetchVideoChannels() async throws -> [Channel]
+    func fetchChannelInfo(channelID: Int) async throws -> ChannelDetail
 }

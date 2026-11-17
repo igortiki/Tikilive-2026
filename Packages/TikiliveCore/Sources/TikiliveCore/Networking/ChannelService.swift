@@ -30,4 +30,10 @@ final class ChannelService: ChannelServiceProtocol {
         let response: ChannelsResponse = try await client.request(path: "/channels", queryItems: queryItems)
         return response.channels
     }
+
+    // full channel detail: access, stream sources, preview, badges
+    func fetchChannelInfo(channelID: Int) async throws -> ChannelDetail {
+        let response: ChannelDetailResponse = try await client.request(path: "/channels/\(channelID)")
+        return response.channel
+    }
 }

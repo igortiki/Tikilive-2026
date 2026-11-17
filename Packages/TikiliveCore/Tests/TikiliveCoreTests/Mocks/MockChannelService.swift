@@ -29,5 +29,9 @@ final class MockChannelService: ChannelServiceProtocol {
         
         return channels
     }
-    
+
+    // not used by the channel list tests yet
+    func fetchChannelInfo(channelID: Int) async throws -> ChannelDetail {
+        throw URLError(.badServerResponse)
+    }
 }
