@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  RootView.swift
 //  Tikilive
 //
 //  Created by Igor Malasevschi on 10/30/26
@@ -8,14 +8,10 @@
 import SwiftUI
 import TikiliveCore
 
-import SwiftUI
-
 struct RootView: View {
-    //private let dependencies: AppDependencies
     @State private var channelListViewModel: ChannelListViewModel
     
     init(dependencies: AppDependencies) {
-        //self.dependencies = dependencies
         _channelListViewModel = State(initialValue: dependencies.makeChannelListViewModel())
     }
     
