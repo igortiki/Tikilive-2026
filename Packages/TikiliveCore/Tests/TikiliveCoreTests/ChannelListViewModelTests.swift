@@ -111,4 +111,34 @@ struct ChannelListViewModelTests {
         // Assert
         #expect(channelService.fetchCallCount == 1)
     }
+
+    @Test
+    @MainActor
+    func loadChannelsIgnoresCancellationError() async throws {
+
+        // Arrange
+        let channelService = MockChannelService(channels: [], error: CancellationError())
+        let viewModel = ChannelListViewModel(service: channelService)
+
+        // Act
+        await viewModel.loadChannels()
+
+        // Assert
+        #expect(viewModel.errorMessage == nil)
+    }
+
+    @Test
+    @MainActor
+    func loadChannelsIgnoresURLCancelled() async throws {
+
+        // Arrange
+        let channelService = MockChannelService(channels: [], error: URLError(.cancelled))
+        let viewModel = ChannelListViewModel(service: channelService)
+
+        // Act
+        await viewModel.loadChannels()
+
+        // Assert
+        #expect(viewModel.errorMessage == nil)
+    }
 }
