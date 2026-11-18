@@ -29,10 +29,13 @@ public final class ImageLoader {
             throw ImageLoaderError.invalidImage
         }
         
-        // 3. Save image to cache
-        cache.setImage(image, for: url as NSURL)
-        
-        return image
+        // 3. Decode off the main thread so rendering doesn't have to
+        let preparedImage = await image.byPreparingForDisplay() ?? image
+
+        // 4. Save the decoded image to cache
+        cache.setImage(preparedImage, for: url as NSURL)
+
+        return preparedImage
     }
     
     // Not used yet; reserved for clearing the cache later
