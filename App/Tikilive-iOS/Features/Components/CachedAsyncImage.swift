@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import TikiliveCore
+import TikiliveUI
 
 struct CachedAsyncImage: View {
     let url: URL?

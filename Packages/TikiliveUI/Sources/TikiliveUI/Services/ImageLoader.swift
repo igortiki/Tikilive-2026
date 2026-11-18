@@ -1,6 +1,6 @@
 //
 //  ImageLoader.swift
-//  TikiliveCore
+//  TikiliveUI
 //
 //  Created by Igor Malasevschi on 11/17/26
 //
@@ -11,8 +11,8 @@ import UIKit
 public final class ImageLoader {
     private let cache: ImageCache
     
-    init(cache: ImageCache) {
-        self.cache = cache
+    public init() {
+        self.cache = ImageCache()
     }
     
     public func loadImage(from url: URL) async throws -> UIImage {

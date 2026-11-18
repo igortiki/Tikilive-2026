@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TikiliveCore
+import TikiliveUI
 
 struct ChannelRowView: View {
     private let channel: ChannelItem

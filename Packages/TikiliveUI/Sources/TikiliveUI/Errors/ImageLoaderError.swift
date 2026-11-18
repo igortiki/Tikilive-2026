@@ -1,6 +1,6 @@
 //
-//  CoreErrors.swift
-//  TikiliveCore
+//  ImageLoaderError.swift
+//  TikiliveUI
 //
 //  Created by Igor Malasevschi on 11/17/26
 //

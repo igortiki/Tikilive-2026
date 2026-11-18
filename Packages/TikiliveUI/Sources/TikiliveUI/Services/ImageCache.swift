@@ -1,6 +1,6 @@
 //
 //  ImageCache.swift
-//  TikiliveCore
+//  TikiliveUI
 //
 //  Created by Igor Malasevschi on 11/17/26
 //

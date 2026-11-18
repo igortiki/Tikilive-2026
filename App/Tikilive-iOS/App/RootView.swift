@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TikiliveCore
+import TikiliveUI
 
 struct RootView: View {
     @State private var channelListViewModel: ChannelListViewModel
@@ -14,7 +15,7 @@ struct RootView: View {
     
     init(dependencies: AppDependencies) {
         _channelListViewModel = State(initialValue: dependencies.makeChannelListViewModel())
-        self.imageLoader = dependencies.imageLoader
+        self.imageLoader = ImageLoader()
     }
     
     var body: some View {

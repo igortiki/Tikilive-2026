@@ -24,12 +24,16 @@ packages:
   TikiliveCore:
     path: ../Packages/TikiliveCore
 
+  TikiliveUI:
+    path: ../Packages/TikiliveUI
+
 # shared by both apps
 targetTemplates:
   App:
     type: application
     dependencies:
       - package: TikiliveCore
+      - package: TikiliveUI
     settings:
       base:
         PRODUCT_NAME: Tikilive

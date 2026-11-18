@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TikiliveCore
+import TikiliveUI
 
 struct ChannelListView: View {
     @Binding var selectedChannel: ChannelItem?
