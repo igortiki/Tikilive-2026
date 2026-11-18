@@ -7,9 +7,12 @@
 
 public final class AppDependencies {
     private let apiClient: APIClient
-   
+    public let imageLoader: ImageLoader
+
+    @MainActor
     public init(configuration: APIConfiguration) {
         self.apiClient = APIClient(configuration: configuration)
+        self.imageLoader = ImageLoader(cache: ImageCache())
     }
     
     @MainActor

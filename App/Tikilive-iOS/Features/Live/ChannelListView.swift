@@ -11,10 +11,12 @@ import TikiliveCore
 struct ChannelListView: View {
     @Binding var selectedChannel: ChannelItem?
     private let channelListViewModel: ChannelListViewModel
+    private let imageLoader: ImageLoader
 
-    init(channelListViewModel: ChannelListViewModel, selectedChannel: Binding<ChannelItem?>) {
+    init(channelListViewModel: ChannelListViewModel, selectedChannel: Binding<ChannelItem?>, imageLoader: ImageLoader) {
         self.channelListViewModel = channelListViewModel
         self._selectedChannel = selectedChannel
+        self.imageLoader = imageLoader
     }
 
     var body: some View {
@@ -26,7 +28,7 @@ struct ChannelListView: View {
                     Button {
                         selectedChannel = channel
                     } label: {
-                        ChannelRowView(channel: channel, isSelected: selectedChannel?.id == channel.id)
+                        ChannelRowView(channel: channel, isSelected: selectedChannel?.id == channel.id, imageLoader: imageLoader)
                     }
                     .buttonStyle(.plain)
                 }
