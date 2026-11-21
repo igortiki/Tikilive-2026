@@ -7,13 +7,11 @@
 
 import SwiftUI
 import TikiliveCore
-import TikiliveUI
 import AVKit
 
 struct LiveView: View {
     @State private var selectedChannel: ChannelItem?
     @Environment(\.verticalSizeClass) private var verticalSizeClass
-    private let imageLoader: ImageLoader
 
     // iPhone in landscape reports a compact vertical size class
     private var isLandscape: Bool {
@@ -26,9 +24,8 @@ struct LiveView: View {
 
     private let channelListViewModel: ChannelListViewModel
 
-    init(channelListViewModel: ChannelListViewModel, imageLoader: ImageLoader) {
+    init(channelListViewModel: ChannelListViewModel) {
         self.channelListViewModel = channelListViewModel
-        self.imageLoader = imageLoader
     }
 
     var body: some View {
@@ -39,7 +36,7 @@ struct LiveView: View {
 
             if !isLandscape {
                 LiveHeaderView(channel: selectedChannel)
-                ChannelListView(channelListViewModel: channelListViewModel, selectedChannel: $selectedChannel, imageLoader: imageLoader)
+                ChannelListView(channelListViewModel: channelListViewModel, selectedChannel: $selectedChannel)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

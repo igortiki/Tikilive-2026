@@ -7,22 +7,19 @@
 
 import SwiftUI
 import TikiliveCore
-import TikiliveUI
 
 struct ChannelRowView: View {
     private let channel: ChannelItem
     private let isSelected: Bool
-    private let imageLoader: ImageLoader
     
-    init(channel: ChannelItem, isSelected: Bool, imageLoader: ImageLoader) {
+    init(channel: ChannelItem, isSelected: Bool) {
         self.channel = channel
         self.isSelected = isSelected
-        self.imageLoader = imageLoader
     }
     
     var body: some View {
         HStack(spacing: 16) {
-            CachedAsyncImage(url: channel.logoURL, imageLoader: imageLoader)
+            CachedAsyncImage(url: channel.logoURL)
                 .frame(width: 56, height: 44)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             

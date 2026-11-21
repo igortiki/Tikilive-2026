@@ -20,7 +20,7 @@ struct RootView: View {
     
     var body: some View {
         TabView {
-            LiveView(channelListViewModel: channelListViewModel, imageLoader: imageLoader)
+            LiveView(channelListViewModel: channelListViewModel)
                 .tabItem {
                     Label("Live", systemImage: "play.tv")
                 }
@@ -38,6 +38,7 @@ struct RootView: View {
                 .toolbarBackground(.visible, for: .tabBar)
                 .toolbarColorScheme(.dark, for: .tabBar)
         }
+        .environment(\.imageLoader, imageLoader)
         .tint(Color.appAccent)
         .preferredColorScheme(.dark)
     }

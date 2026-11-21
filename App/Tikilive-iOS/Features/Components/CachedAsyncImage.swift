@@ -10,7 +10,7 @@ import TikiliveUI
 
 struct CachedAsyncImage: View {
     let url: URL?
-    let imageLoader: ImageLoader
+    @Environment(\.imageLoader) private var imageLoader
 
     @State private var image: UIImage?
 
@@ -30,7 +30,7 @@ struct CachedAsyncImage: View {
             guard let url else { return }
 
             do {
-                image = try await imageLoader.loadImage(from: url)
+                image = try await imageLoader?.loadImage(from: url)
             } catch is CancellationError, URLError.cancelled {
                 // cancelled when the row leaves the screen, not a real error
             } catch {
