@@ -31,6 +31,8 @@ struct CachedAsyncImage: View {
 
             do {
                 image = try await imageLoader.loadImage(from: url)
+            } catch is CancellationError, URLError.cancelled {
+                // cancelled when the row leaves the screen, not a real error
             } catch {
                 print("Image loading failed: \(error)")
             }
