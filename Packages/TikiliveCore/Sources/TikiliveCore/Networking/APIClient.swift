@@ -21,11 +21,14 @@ final class APIClient: Sendable {
     // MARK: - Generic Request
     func request<T: Decodable>(path: String, queryItems: [URLQueryItem] = []) async throws -> T {
         let method = "GET"
-        let url = configuration.baseURL
+        var url = configuration.baseURL
             .appending(path: "api")
             .appending(path: configuration.apiID)
             .appending(path: path)
-            .appending(queryItems: queryItems)
+        // empty query items would still add a trailing "?" and break the signature
+        if !queryItems.isEmpty {
+            url.append(queryItems: queryItems)
+        }
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method
