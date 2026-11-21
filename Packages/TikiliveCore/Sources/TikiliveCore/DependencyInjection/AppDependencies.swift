@@ -19,4 +19,11 @@ public final class AppDependencies {
         let viewModel = ChannelListViewModel(service: channelService)
         return viewModel
     }
+    
+    @MainActor
+    public func makeChannelDetailViewModel() -> ChannelDetailViewModel {
+        let channelService = ChannelService(client: apiClient)
+        let viewModel = ChannelDetailViewModel(service: channelService)
+        return viewModel
+    }
 }

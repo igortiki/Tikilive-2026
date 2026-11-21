@@ -11,16 +11,19 @@ import TikiliveUI
 
 struct RootView: View {
     @State private var channelListViewModel: ChannelListViewModel
+    @State private var channelDetailViewModel: ChannelDetailViewModel
+    
     private let imageLoader: ImageLoader
     
     init(dependencies: AppDependencies) {
         _channelListViewModel = State(initialValue: dependencies.makeChannelListViewModel())
+        _channelDetailViewModel = State(initialValue: dependencies.makeChannelDetailViewModel())
         self.imageLoader = ImageLoader()
     }
     
     var body: some View {
         TabView {
-            LiveView(channelListViewModel: channelListViewModel)
+            LiveView(channelListViewModel: channelListViewModel, channelDetailViewModel: channelDetailViewModel)
                 .tabItem {
                     Label("Live", systemImage: "play.tv")
                 }
