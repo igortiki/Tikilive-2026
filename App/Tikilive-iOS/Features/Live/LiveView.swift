@@ -85,7 +85,6 @@ struct LiveView: View {
                 return
             }
 
-
             player.replaceCurrentItem(with: AVPlayerItem(url: url))
             player.play()
         }
