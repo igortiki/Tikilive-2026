@@ -33,6 +33,18 @@ struct ChannelRowView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             
             Text(channel.name)
+
+            Spacer()
+
+            if isSelected && channel.isLive {
+                Text("LIVE")
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.appLive)
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
+            }
         }
         .padding(12)
         .frame(maxWidth: .infinity, minHeight: 60, alignment: .leading)
