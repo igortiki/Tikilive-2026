@@ -4,6 +4,11 @@
 //
 //  Created by Igor Malasevschi on 11/16/26
 //
+//  +-----------------------------------+
+//  | Channel name  (title2, bold)      |  padding 16
+//  | "Select a channel" when nil       |
+//  +-----------------------------------+
+//
 
 import SwiftUI
 import TikiliveCore

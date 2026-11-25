@@ -4,6 +4,17 @@
 //
 //  Created by Igor Malasevschi on 10/30/26
 //
+//  +-------------------------------+
+//  | TabView                       |
+//  |                               |
+//  |   selected tab content        |
+//  |   (LiveView / EPG placeholder)|
+//  |                               |
+//  +---------------+---------------+
+//  |    > Live     |    # EPG      |  tab bar: appBackground, dark
+//  +---------------+---------------+
+//  environment: imageLoader, tint appAccent
+//
 
 import SwiftUI
 import TikiliveCore

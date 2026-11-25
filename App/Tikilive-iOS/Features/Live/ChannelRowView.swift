@@ -4,6 +4,15 @@
 //
 //  Created by Igor Malasevschi on 11/15/26
 //
+//  HStack (spacing 16), padding 12, minHeight 60, radius 12
+//  +-----------------------------------------+
+//  | +--------+                              |
+//  | |  logo  |   Channel name               |
+//  | +--------+                              |
+//  +-----------------------------------------+
+//  logo 56x44, radius 8
+//  selected: appSelectedCard + appAccent stroke 1.5
+//
 
 import SwiftUI
 import TikiliveCore

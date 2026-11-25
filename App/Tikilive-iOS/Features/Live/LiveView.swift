@@ -4,6 +4,20 @@
 //
 //  Created by Igor Malasevschi on 11/15/26
 //
+//  Portrait                         Landscape (compact height)
+//  +---------------------------+    +---------------------------------+
+//  | VideoPlayer 16:9          |    |                                 |
+//  |   overlay: spinner/error  |    |  VideoPlayer, full screen       |
+//  +---------------------------+    |  overlay: spinner/error         |
+//  | LiveHeaderView            |    |                                 |
+//  +---------------------------+    |  no header, no list,            |
+//  | ChannelListView           |    |  no tab bar, no status bar      |
+//  |   (scrolls)               |    |                                 |
+//  |                           |    +---------------------------------+
+//  +---------------------------+
+//  | tab bar (from RootView)   |
+//  +---------------------------+
+//
 
 import SwiftUI
 import TikiliveCore

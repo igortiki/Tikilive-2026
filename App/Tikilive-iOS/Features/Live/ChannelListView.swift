@@ -4,6 +4,17 @@
 //
 //  Created by Igor Malasevschi on 11/11/26
 //
+//  ScrollView > LazyVStack (spacing 8, padding: horizontal 16, top 16)
+//  +-----------------------------------+
+//  | ChannelRowView                    |
+//  +-----------------------------------+
+//  | ChannelRowView (selected)         |
+//  +-----------------------------------+
+//  | ChannelRowView                    |
+//  +-----------------------------------+
+//  | ...                               |
+//  pull down = refresh
+//
 
 import SwiftUI
 import TikiliveCore
