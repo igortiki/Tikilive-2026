@@ -58,9 +58,11 @@ struct LiveView: View {
                             .controlSize(.large)
                             .tint(.white)
                     } else if let errorMessage = channelDetailViewModel.errorMessage {
-                        Text(errorMessage)
-                            .font(.title2.bold())
+                        Label(errorMessage, systemImage: "exclamationmark.triangle")
+                            .font(.headline)
                             .foregroundStyle(.white)
+                            .multilineTextAlignment(.center)
+                            .padding()
                     }
                 }
                 .ignoresSafeArea(edges: isLandscape ? .all : [])
