@@ -1,34 +1,39 @@
-# TikiLive
+# Tikilive
 
-SwiftUI live TV client for iOS and tvOS.
+A live TV client for iOS and tvOS, written in SwiftUI.
 
-## Requirements
+A rebuild of an app I originally shipped on iOS and tvOS, redone on current tooling to
+keep the architecture explicit and the business logic testable outside the UI.
 
-- Xcode 27
-- [Homebrew](https://brew.sh)
-
-## Run
+## Layout
 
 ```
-make bootstrap   # install Mint and XcodeGen (once)
-make project     # generate the Xcode project and open it
+Packages/TikiliveCore/   networking, models, view models, tests
+Packages/TikiliveUI/     reusable views
+App/Tikilive-iOS/        iOS app target
+App/Tikilive-tvOS/       tvOS app target
 ```
 
-Pick the `Tikilive-iOS` or `Tikilive-tvOS` scheme and run.
+The core is a Swift package with no UIKit or SwiftUI dependency, so the view models and the
+networking layer are unit-tested without a host app. The two platform targets are thin.
 
-## Commands
+## What's in it
 
-Run from the repository root:
+- **Networking** — a small `APIClient` over `URLSession` with request signing, typed errors and
+  decoding into domain models.
+- **View models** — `@MainActor`, Swift 6 language mode, `Sendable` models across the boundary.
+- **Dependency injection** — services are constructed in `AppDependencies` and injected into the
+  view models; tests substitute mocks through the same initialisers.
+- **Tests** — Swift Testing (`@Suite` / `@Test`), covering the signer, the decoders, and both view
+  models including the failure paths.
+- **Playback** — real HLS streams resolved per channel.
 
-| Command | Description |
-|---------|-------------|
-| `make help`          | List all commands |
-| `make bootstrap`     | Install Mint and XcodeGen at the pinned versions |
-| `make project`       | Generate the Xcode project and open it |
-| `make build`         | Build the iOS app (Debug) |
-| `make build-tvos`    | Build the tvOS app (Debug) |
-| `make build-release` | Build the iOS app (Release) |
-| `make test`          | Run the TikiliveCore package tests |
-| `make clean`         | Remove the generated Xcode project and package build artifacts |
+## Running it
 
-The Xcode project is generated from `App/project.yml` — change settings there, then `make project`.
+`APIConfiguration` ships with placeholders:
+
+```swift
+static let tiki6 = APIConfiguration(baseStringURL: "...", apiID: "<your api id>", apiKey: "<your api key>")
+```
+
+Supply your own credentials to point it at a backend.
