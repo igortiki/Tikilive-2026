@@ -27,6 +27,12 @@ import Combine
 struct LiveView: View {
     
     @State private var selectedChannel: ChannelItem?
+
+    // empty until the selected channel's stream is loaded
+    @State private var player = AVPlayer()
+    // true from the channel switch until the video actually plays
+    @State private var isLoading = false
+
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     
     private let channelListViewModel: ChannelListViewModel
@@ -36,11 +42,6 @@ struct LiveView: View {
     private var isLandscape: Bool {
         verticalSizeClass == .compact
     }
-    
-    // empty until the selected channel's stream is loaded
-    @State private var player = AVPlayer()
-    // true from the channel switch until the video actually plays
-    @State private var isLoading = false
     
     init(channelListViewModel: ChannelListViewModel, channelDetailViewModel: ChannelDetailViewModel) {
         self.channelListViewModel = channelListViewModel
@@ -54,7 +55,7 @@ struct LiveView: View {
                 .aspectRatio(16.0 / 9.0, contentMode: .fit)
                 .overlay {
                     let error = channelListViewModel.errorMessage ?? channelDetailViewModel.errorMessage
-                
+
                     if isLoading {
                         ProgressView()
                             .controlSize(.large)
@@ -67,6 +68,14 @@ struct LiveView: View {
                             .padding()
                     }
                 }
+
+                .overlay(alignment: .topTrailing) {
+                    if selectedChannel?.isLive == true {
+                        LiveBadgeView()
+                            .padding(12)
+                    }
+                }
+
                 .ignoresSafeArea(edges: isLandscape ? .all : [])
             
             if !isLandscape {
