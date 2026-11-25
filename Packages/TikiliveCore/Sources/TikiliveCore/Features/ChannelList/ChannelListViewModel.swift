@@ -23,6 +23,9 @@ public final class ChannelListViewModel {
     }
     
     public func loadChannels() async {
+        // clear the previous failure so a successful reload hides it
+        errorMessage = nil
+
         do {
             let apiChannels = try await service.fetchVideoChannels()
             self.channels = apiChannels.map { ChannelItem(channel: $0) }

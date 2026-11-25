@@ -53,11 +53,13 @@ struct LiveView: View {
             VideoPlayer(player: player)
                 .aspectRatio(16.0 / 9.0, contentMode: .fit)
                 .overlay {
+                    let error = channelListViewModel.errorMessage ?? channelDetailViewModel.errorMessage
+                
                     if isLoading {
                         ProgressView()
                             .controlSize(.large)
                             .tint(.white)
-                    } else if let errorMessage = channelDetailViewModel.errorMessage {
+                    } else if let errorMessage = error {
                         Label(errorMessage, systemImage: "exclamationmark.triangle")
                             .font(.headline)
                             .foregroundStyle(.white)
