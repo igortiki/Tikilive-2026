@@ -34,11 +34,14 @@ struct ChannelListView: View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 8) {
                 ForEach(channelListViewModel.channels) { channel in
-                    Button {
-                        selectedChannel = channel
-                    } label: {
-                        ChannelRowView(channel: channel, isSelected: selectedChannel?.id == channel.id)
-                    }
+                    Button(
+                        action: {
+                            selectedChannel = channel
+                        },
+                        label: {
+                            ChannelRowView(channel: channel, isSelected: selectedChannel?.id == channel.id)
+                        }
+                    )
                     .buttonStyle(.plain)
                 }
             }
