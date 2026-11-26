@@ -22,16 +22,12 @@
 import SwiftUI
 import TikiliveCore
 import AVKit
-import Combine
 
 struct LiveView: View {
     
     @State private var selectedChannel: ChannelItem?
 
-    // empty until the selected channel's stream is loaded
-    @State private var player = AVPlayer()
-    // true from the channel switch until the video actually plays
-    @State private var isLoading = false
+    private let playerViewModel: PlayerViewModel
 
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     
@@ -43,20 +39,21 @@ struct LiveView: View {
         verticalSizeClass == .compact
     }
     
-    init(channelListViewModel: ChannelListViewModel, channelDetailViewModel: ChannelDetailViewModel) {
+    init(channelListViewModel: ChannelListViewModel, channelDetailViewModel: ChannelDetailViewModel, playerViewModel: PlayerViewModel) {
         self.channelListViewModel = channelListViewModel
         self.channelDetailViewModel = channelDetailViewModel
+        self.playerViewModel = playerViewModel
     }
     
     var body: some View {
         VStack(spacing: 0) {
             
-            VideoPlayer(player: player)
+            VideoPlayer(player: playerViewModel.player)
                 .aspectRatio(16.0 / 9.0, contentMode: .fit)
                 .overlay {
                     let error = channelListViewModel.errorMessage ?? channelDetailViewModel.errorMessage
 
-                    if isLoading {
+                    if playerViewModel.isLoading {
                         ProgressView()
                             .controlSize(.large)
                             .tint(.white)
@@ -91,17 +88,17 @@ struct LiveView: View {
         
         .task(id: selectedChannel?.id) {
             guard let id = selectedChannel?.id else {
-                player.pause()
-                player.replaceCurrentItem(with: nil)
-                isLoading = false
+                playerViewModel.pause()
+                playerViewModel.clear()
+                playerViewModel.setLoading(false)
                 return
             }
             
-            isLoading = true
+            playerViewModel.setLoading(true)
             
             // Stop playback while loading a new channel
-            player.pause()
-            player.replaceCurrentItem(with: nil)
+            playerViewModel.pause()
+            playerViewModel.clear()
             
             await channelDetailViewModel.fetchChannelDetails(id: id)
             
@@ -112,30 +109,20 @@ struct LiveView: View {
             
             guard let url = channelDetailViewModel.channelDetail?.streamURL else {
                 // no stream or the request failed: don't spin forever
-                isLoading = false
+                playerViewModel.setLoading(false)
                 return
             }
             
-            player.replaceCurrentItem(with: AVPlayerItem(url: url))
-            player.play()
+            playerViewModel.load(url: url)
+            playerViewModel.play()
         }
         
-        // AVPlayer isn't @Observable, so its status comes through KVO
-        .onReceive(player.publisher(for: \.timeControlStatus).receive(on: RunLoop.main)) { status in
-            if status == .playing {
-                isLoading = false
-            }
-        }
         .onAppear {
-            guard player.currentItem != nil else {
-                return
-            }
-            
-            player.play()
+            playerViewModel.resume()
         }
         
         .onDisappear {
-            player.pause()
+            playerViewModel.pause()
         }
     }
 }
