@@ -72,6 +72,9 @@ struct LiveView: View {
                             .padding(12)
                     }
                 }
+                // card in portrait, edge to edge in landscape
+                .clipShape(RoundedRectangle(cornerRadius: isLandscape ? 0 : 16))
+                .padding(.horizontal, isLandscape ? 0 : 16)
 
                 .ignoresSafeArea(edges: isLandscape ? .all : [])
             
