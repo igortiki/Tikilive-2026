@@ -44,7 +44,6 @@ struct RootView: View {
                 }
                 .toolbarBackground(Color.appBackground, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
-                .toolbarColorScheme(.dark, for: .tabBar)
 
             GuideView()
                 .tabItem {
@@ -52,7 +51,6 @@ struct RootView: View {
                 }
                 .toolbarBackground(Color.appBackground, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
-                .toolbarColorScheme(.dark, for: .tabBar)
 
             LibraryView()
                 .tabItem {
@@ -60,7 +58,6 @@ struct RootView: View {
                 }
                 .toolbarBackground(Color.appBackground, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
-                .toolbarColorScheme(.dark, for: .tabBar)
 
             AccountView()
                 .tabItem {
@@ -68,7 +65,6 @@ struct RootView: View {
                 }
                 .toolbarBackground(Color.appBackground, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
-                .toolbarColorScheme(.dark, for: .tabBar)
         }
         .environment(\.imageLoader, imageLoader)
         .tint(Color.appAccent)
