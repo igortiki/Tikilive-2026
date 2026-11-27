@@ -13,9 +13,13 @@ import Combine
 @Observable
 public final class PlayerViewModel {
     public private(set) var isLoading = false
+    public private(set) var errorMessage: String?
 
     @ObservationIgnored
     private var statusSubscription: AnyCancellable?
+
+    @ObservationIgnored
+    private var itemStatusSubscription: AnyCancellable?
 
     public let player: AVPlayer = {
         let player = AVPlayer()
@@ -37,11 +41,31 @@ public final class PlayerViewModel {
     }
 
     public func clear() {
+        itemStatusSubscription = nil
         player.replaceCurrentItem(with: nil)
+        errorMessage = nil
     }
 
     public func load(url: URL) {
-        player.replaceCurrentItem(with: AVPlayerItem(url: url))
+        itemStatusSubscription = nil
+
+        let item = AVPlayerItem(url: url)
+
+        player.replaceCurrentItem(with: item)
+
+        observeItemStatus(item)
+    }
+
+    private func observeItemStatus(_ item: AVPlayerItem) {
+        itemStatusSubscription = item
+            .publisher(for: \.status)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                if status == .failed {
+                    self?.isLoading = false
+                    self?.errorMessage = "Stream unavailable"
+                }
+            }
     }
 
     public func resume() {

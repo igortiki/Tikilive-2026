@@ -50,26 +50,31 @@ struct LiveView: View {
             
             VideoPlayer(player: playerViewModel.player)
                 .aspectRatio(16.0 / 9.0, contentMode: .fit)
+                // badge first so the error layer covers it
+                .overlay(alignment: .topTrailing) {
+                    if selectedChannel?.isLive == true {
+                        LiveBadgeView()
+                            .padding(12)
+                    }
+                }
                 .overlay {
-                    let error = channelListViewModel.errorMessage ?? channelDetailViewModel.errorMessage
+                    let error = channelListViewModel.errorMessage
+                        ?? channelDetailViewModel.errorMessage
+                        ?? playerViewModel.errorMessage
 
                     if playerViewModel.isLoading {
                         ProgressView()
                             .controlSize(.large)
                             .tint(.white)
                     } else if let errorMessage = error {
-                        Label(errorMessage, systemImage: "exclamationmark.triangle")
-                            .font(.headline)
-                            .foregroundStyle(.white)
-                            .multilineTextAlignment(.center)
-                            .padding()
-                    }
-                }
-
-                .overlay(alignment: .topTrailing) {
-                    if selectedChannel?.isLive == true {
-                        LiveBadgeView()
-                            .padding(12)
+                        ZStack {
+                            Color.black
+                            Label(errorMessage, systemImage: "exclamationmark.triangle")
+                                .font(.headline)
+                                .foregroundStyle(.white)
+                                .multilineTextAlignment(.center)
+                                .padding()
+                        }
                     }
                 }
                 // card in portrait, edge to edge in landscape
