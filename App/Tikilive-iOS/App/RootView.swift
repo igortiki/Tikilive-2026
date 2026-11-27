@@ -8,10 +8,10 @@
 //  | TabView                       |
 //  |                               |
 //  |   selected tab content        |
-//  |   (LiveView / EPG placeholder)|
+//  |   (LiveView / GuideView)      |
 //  |                               |
 //  +---------------+---------------+
-//  |    > Live     |    # EPG      |  tab bar: appBackground, dark
+//  |    > Live     |  # TV Guide   |  tab bar: appBackground, dark
 //  +---------------+---------------+
 //  environment: imageLoader, tint appAccent
 //
@@ -46,11 +46,9 @@ struct RootView: View {
                 .toolbarBackground(.visible, for: .tabBar)
                 .toolbarColorScheme(.dark, for: .tabBar)
 
-            Text("EPG")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.appBackground)
+            GuideView()
                 .tabItem {
-                    Label("EPG", systemImage: "calendar")
+                    Label("TV Guide", systemImage: "calendar")
                 }
                 .toolbarBackground(Color.appBackground, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
