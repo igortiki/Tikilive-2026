@@ -21,8 +21,3 @@ struct AccountView: View {
             .background(Color.appBackground)
     }
 }
-
-#Preview {
-    AccountView()
-        .preferredColorScheme(.dark)
-}

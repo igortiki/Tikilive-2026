@@ -7,10 +7,12 @@
 
 public final class AppDependencies {
     private let apiClient: APIClient
+    public let sessionStore: SessionStore
 
     @MainActor
     public init(configuration: APIConfiguration) {
         self.apiClient = APIClient(configuration: configuration)
+        self.sessionStore = SessionStore()
     }
     
     @MainActor

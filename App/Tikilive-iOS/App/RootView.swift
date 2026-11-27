@@ -24,6 +24,7 @@ struct RootView: View {
     @State private var channelListViewModel: ChannelListViewModel
     @State private var channelDetailViewModel: ChannelDetailViewModel
     @State private var playerViewModel: PlayerViewModel
+    private let isAuthenticated: Bool
     
     private let imageLoader: ImageLoader
     
@@ -31,6 +32,7 @@ struct RootView: View {
         _channelListViewModel = State(initialValue: dependencies.makeChannelListViewModel())
         _channelDetailViewModel = State(initialValue: dependencies.makeChannelDetailViewModel())
         _playerViewModel = State(initialValue: dependencies.makePlayerViewModel())
+        isAuthenticated = dependencies.sessionStore.isAuthenticated
         self.imageLoader = ImageLoader()
     }
     
@@ -59,12 +61,21 @@ struct RootView: View {
                 .toolbarBackground(Color.appBackground, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
 
-            AccountView()
-                .tabItem {
-                    Label("Account", systemImage: "person.crop.circle")
-                }
-                .toolbarBackground(Color.appBackground, for: .tabBar)
-                .toolbarBackground(.visible, for: .tabBar)
+            if isAuthenticated {
+                AccountView()
+                    .tabItem {
+                        Label("Account", systemImage: "person.crop.circle")
+                    }
+                    .toolbarBackground(Color.appBackground, for: .tabBar)
+                    .toolbarBackground(.visible, for: .tabBar)
+            } else {
+                LoginView()
+                    .tabItem {
+                        Label("Login", systemImage: "person.crop.circle")
+                    }
+                    .toolbarBackground(Color.appBackground, for: .tabBar)
+                    .toolbarBackground(.visible, for: .tabBar)
+            }
         }
         .environment(\.imageLoader, imageLoader)
         .tint(Color.appAccent)
