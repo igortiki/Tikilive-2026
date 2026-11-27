@@ -8,11 +8,11 @@
 //  | TabView                       |
 //  |                               |
 //  |   selected tab content        |
-//  |   (LiveView / GuideView)      |
-//  |                               |
-//  +---------------+---------------+
-//  |    > Live     |  # TV Guide   |  tab bar: appBackground, dark
-//  +---------------+---------------+
+//  |   (LiveView / GuideView /     |
+//  |    AccountView)               |
+//  +----------+----------+---------+
+//  |  > Live  | # Guide  | @ Acct  |  tab bar: appBackground, dark
+//  +----------+----------+---------+
 //  environment: imageLoader, tint appAccent
 //
 
@@ -49,6 +49,14 @@ struct RootView: View {
             GuideView()
                 .tabItem {
                     Label("TV Guide", systemImage: "calendar")
+                }
+                .toolbarBackground(Color.appBackground, for: .tabBar)
+                .toolbarBackground(.visible, for: .tabBar)
+                .toolbarColorScheme(.dark, for: .tabBar)
+
+            AccountView()
+                .tabItem {
+                    Label("Account", systemImage: "person.crop.circle")
                 }
                 .toolbarBackground(Color.appBackground, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
